@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import LoginRoute from "./_auth.login";
+import LoginRoute from "./_auth/login";
 
 export const meta: MetaFunction = () => {
   return [
