@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
+import LoginRoute from "./_auth.login";
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,5 +9,5 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  return <p>booleanna</p>;
+  return <LoginRoute/> ;
 }
