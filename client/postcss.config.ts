@@ -1,6 +1,7 @@
-// postcss.config.js
 import autoprefixer from "autoprefixer";
 
-export default {
+const config = {
   plugins: [autoprefixer()],
 };
+
+export default config;
