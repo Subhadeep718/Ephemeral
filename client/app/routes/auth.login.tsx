@@ -7,10 +7,9 @@ import {
   FormLabel,
   Input,
 } from "@mui/joy";
-import EmailIcon from "@mui/icons-material/Email";
-import LockIcon from "@mui/icons-material/Lock";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { IoMdEye } from "react-icons/io";
+import { MdMail } from "react-icons/md";
+import { FaLock } from "react-icons/fa6";
 
 export default function LoginRoute() {
   return (
@@ -18,7 +17,7 @@ export default function LoginRoute() {
       <Box component="form">
         <FormControl>
           <FormLabel>Email Id</FormLabel>
-          <Input name="emailId" type="email" startDecorator={<EmailIcon />} />
+          <Input name="emailId" type="email" startDecorator={<MdMail />} />
           <FormHelperText></FormHelperText>
         </FormControl>
         <FormControl>
@@ -26,8 +25,8 @@ export default function LoginRoute() {
           <Input
             name="password"
             type="password"
-            startDecorator={<LockIcon />}
-            endDecorator={<VisibilityIcon />}
+            startDecorator={<FaLock />}
+            endDecorator={<IoMdEye />}
           />
           <FormHelperText></FormHelperText>
         </FormControl>
