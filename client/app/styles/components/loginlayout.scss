@@ -7,7 +7,8 @@
   position: relative;
 
   &::before {
-    content: "" po;
+    content: "";
+    position: absolute;
   }
 
   .form_box {
