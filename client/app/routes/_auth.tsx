@@ -1,5 +1,5 @@
 import { Outlet } from "@remix-run/react";
-import "../styles/components/loginlayout.scss"
+import "../styles/components/loginlayout.scss";
 
 export default function Layout() {
   return (
@@ -9,3 +9,4 @@ export default function Layout() {
     </div>
   );
 }
+

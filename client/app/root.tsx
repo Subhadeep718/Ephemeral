@@ -42,3 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return <Outlet />;
 }
+
+export function ErrorBoundary() {
+  return <h4>404 not found bool</h4>;
+}
