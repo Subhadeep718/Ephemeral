@@ -1,0 +1,13 @@
+version: "2"
+sql:
+  - name: "sqlite_c"
+    engine: "sqlite"
+    schema: "./internal/database/migrations/"
+    queries: "./internal/database/queries/"
+    database: { uri: "./internal/database/sqlite.db" }
+    gen:
+      go:
+        package: "database"
+        out: "./internal/database/sqlc/"
+        emit_json_tags: true
+        emit_empty_slices: true
