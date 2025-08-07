@@ -34,7 +34,3 @@ go.work.sum
 tmp/
 store/
 test/
-
-
-#Ignore windsurf AI rules
-.windsurfrules
