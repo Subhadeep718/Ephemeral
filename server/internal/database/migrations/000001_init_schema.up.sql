@@ -1,9 +1,0 @@
-CREATE TABLE "users" (
-  "id" TEXT PRIMARY KEY,
-  "pseudonym" TEXT NOT NULL,
-  "email" TEXT NOT NULL UNIQUE,
-  "password" TEXT NOT NULL,
-  "avatar" TEXT,
-  "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "last_active_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
