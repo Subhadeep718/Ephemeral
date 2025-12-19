@@ -1,3 +1,11 @@
+import { Outlet } from "@tanstack/react-router";
+import Nav from "./Nav";
+
 export default function LayoutWrap() {
-  return <div>{/* {Children} */}</div>;
+  return (
+    <div>
+      <Nav />
+      <Outlet />
+    </div>
+  );
 }
