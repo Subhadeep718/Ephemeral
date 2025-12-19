@@ -3,9 +3,11 @@ import Nav from "./Nav";
 
 export default function LayoutWrap() {
   return (
-    <div>
+    <div className="grid  grid-cols-[150px_1fr]">
       <Nav />
-      <Outlet />
+      <div className="">
+        <Outlet />
+      </div>
     </div>
   );
 }
