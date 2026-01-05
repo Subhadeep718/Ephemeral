@@ -25,6 +25,7 @@ export default function Avatar({
   size = "md",
   text,
 }: AvatarProps) {
+  const AvatarName = text?.charAt(0).toUpperCase();
   return (
     <div className="relative inline-block">
       {imgLink ? (
@@ -38,7 +39,11 @@ export default function Avatar({
           className={`rounded-full bg-blue-100 text-blue-400 font-bold
           flex items-center justify-center ${sizeMap[size]}`}
         >
-          {text ? text : <FaUser size={iconSizeMap[size]} />}
+          {text ? (
+            <p className="text-sm font-bold">{AvatarName}</p>
+          ) : (
+            <FaUser size={iconSizeMap[size]} />
+          )}
         </div>
       )}
     </div>
