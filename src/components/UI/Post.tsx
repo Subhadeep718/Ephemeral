@@ -4,6 +4,8 @@ import "../../index.css";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { MdBookmarkAdded } from "react-icons/md";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function Post() {
   return (
@@ -60,6 +62,18 @@ function PostFooterAction() {
 
       <MdOutlineBookmarkAdd />
       <MdBookmarkAdded />
+    </div>
+  );
+}
+
+function LikePost({ countLike }: { countLike: number }) {
+  return (
+    <div>
+      <div>
+        <FavoriteIcon />
+        <FavoriteBorderIcon />
+      </div>
+      {countLike}
     </div>
   );
 }
