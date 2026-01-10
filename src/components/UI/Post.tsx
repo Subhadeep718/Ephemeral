@@ -1,20 +1,25 @@
 import Avatar from "./Avatar";
 import "../../index.css";
+import { useState } from "react";
+// import { gsap } from "gsap";
 
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { MdBookmarkAdded } from "react-icons/md";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { BsChat } from "react-icons/bs";
+import Drawer from "./drawer";
 
 export default function Post() {
   return (
-    <div className=" grid grid-rows-[40px_1fr_auto] gap-2">
+    <div className=" grid grid-rows-[40px_auto_auto] gap-2">
       <PostTitle userName="Subhadeep" songTitle="lorem is" />
-      <div>
+      <div className="w-full h-full overflow-hidden">
         <img
-          // src="https://www.k12digest.com/wp-content/uploads/2024/03/1-3-550x330.jpg"
-          className="w-full object-cover aspect-3/2"
+          src="https://static0.srcdn.com/wordpress/wp-content/uploads/2025/05/one-piece-luffy-angry.jpg"
+          alt="post"
+          className="w-full h-full object-cover "
         />
       </div>
       <PostFooter />
@@ -34,9 +39,9 @@ function PostTitle({ userName, songTitle, imgLink }: PostTitleProps) {
       <div className="flex items-center gap-1.5">
         <Avatar size="sm" imgLink={imgLink} text={userName} />
         <div>
-          <p className="text-sm font-bold text-stone-700 ">{userName}</p>
+          <p className="text-sm font-bold text-white/80 ">{userName}</p>
           {songTitle && (
-            <p className="text-xs text-stone-500 font-semibold ">{songTitle}</p>
+            <p className="text-xs text-white/70 font-semibold ">{songTitle}</p>
           )}
         </div>
       </div>
@@ -58,7 +63,10 @@ function PostFooter() {
 function PostFooterAction() {
   return (
     <div>
-      <div></div>
+      <div>
+        <LikePost countLike={5} />
+        <CommentPost />
+      </div>
 
       <MdOutlineBookmarkAdd />
       <MdBookmarkAdded />
@@ -67,14 +75,44 @@ function PostFooterAction() {
 }
 
 function LikePost({ countLike }: { countLike: number }) {
+  const [liked, setLiked] = useState(false);
+  const [likedCound, setLikedCound] = useState(countLike);
+
+  const handleLike = () => {
+    if (!liked) {
+      setLiked(true);
+      setLikedCound(likedCound + 1);
+    } else {
+      setLiked(false);
+      setLikedCound(likedCound - 1);
+    }
+  };
+
   return (
-    <div>
+    <div onClick={handleLike} className="flex flex-row gap-1 items-center">
       <div>
-        <FavoriteIcon />
-        <FavoriteBorderIcon />
+        {liked ? (
+          <FavoriteIcon fontSize="large" sx={{ color: "red" }} />
+        ) : (
+          <FavoriteBorderIcon fontSize="large" sx={{ color: "#c8c8c8" }} />
+        )}
       </div>
-      {countLike}
+      <p className="text-[1.3rem] font-bold text-white/80 ">{likedCound}</p>
     </div>
+  );
+}
+
+function CommentPost() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <div onClick={() => setOpen(true)}>
+        <BsChat />
+      </div>
+      <Drawer open={open} onClose={() => setOpen(false)} position="bottom">
+        <div>hi</div>
+      </Drawer>
+    </>
   );
 }
 

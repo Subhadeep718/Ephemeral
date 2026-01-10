@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Post from "../components/UI/Post";
 
 export const Route = createFileRoute("/")({
-  component: () => <h2>Home Page</h2>,
+  component: () => <Post />,
 });
