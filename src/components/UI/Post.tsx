@@ -62,16 +62,22 @@ function PostFooter() {
 
 function PostFooterAction() {
   return (
-    <div>
-      <div>
+    <div className="flex flex-row justify-between">
+      <div className="flex flex-row gap-2.5">
         <LikePost countLike={5} />
-        <CommentPost />
+        <CommentPost countComment={3} />
       </div>
-
-      <MdOutlineBookmarkAdd />
-      <MdBookmarkAdded />
+      <BookmarkAdded />
     </div>
   );
+}
+
+function BookmarkAdded() {
+  const [isMark, setIsMark] = useState(false);
+  if (isMark) {
+    return <MdOutlineBookmarkAdd onClick={() => setIsMark(false)} />;
+  }
+  return <MdBookmarkAdded onClick={() => setIsMark(true)} />;
 }
 
 function LikePost({ countLike }: { countLike: number }) {
@@ -89,25 +95,31 @@ function LikePost({ countLike }: { countLike: number }) {
   };
 
   return (
-    <div onClick={handleLike} className="flex flex-row gap-1 items-center">
+    <div onClick={handleLike} className="flex flex-row gap-1 items-start">
       <div>
         {liked ? (
-          <FavoriteIcon fontSize="large" sx={{ color: "red" }} />
+          <FavoriteIcon sx={{ fontSize: "30px", color: "red" }} />
         ) : (
-          <FavoriteBorderIcon fontSize="large" sx={{ color: "#c8c8c8" }} />
+          <FavoriteBorderIcon sx={{ fontSize: "30px", color: "#c8c8c8" }} />
         )}
       </div>
-      <p className="text-[1.3rem] font-bold text-white/80 ">{likedCound}</p>
+      <p className="text-[1.2rem] font-bold text-white/80 ">{likedCound}</p>
     </div>
   );
 }
 
-function CommentPost() {
+function CommentPost({ countComment }: { countComment: number }) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <div onClick={() => setOpen(true)}>
-        <BsChat />
+      <div
+        onClick={() => setOpen(true)}
+        className="flex flex-row gap-2 items-start "
+      >
+        <BsChat
+          style={{ fontSize: "24px", fontWeight: "bold", color: "#c8c8c8" }}
+        />
+        <p className="text-[1.2rem] font-bold text-white/80 ">{countComment}</p>
       </div>
       <Drawer open={open} onClose={() => setOpen(false)} position="bottom">
         <div>hi</div>
