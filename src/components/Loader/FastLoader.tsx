@@ -48,7 +48,7 @@ export default function FastLoader() {
 
   return (
     <div ref={container} className="main-div bg-black absolute z-[9999] flex justify-center items-center w-full h-full overflow-hidden">
-      <h3 className="quintessential-regular text-4xl md:text-6xl tracking-[0.3em] text-white flex">
+      <h3 className="quintessential-regular text-[1.75rem] sm:text-[2.25rem] md:text-[3rem] lg:text-[3.75rem] xl:text-[4.5rem] tracking-[0.2em] sm:tracking-[0.25em] md:tracking-[0.3em] text-white flex">
         {text.split("").map((char, i) => (
           <span key={i} className="letter inline-block">
             {char === " " ? "\u00A0" : char}
