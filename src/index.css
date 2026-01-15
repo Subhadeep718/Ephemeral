@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+.quintessential-regular {
+  font-family: "Quintessential", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+
+.dm-serif-text-regular {
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.dm-serif-text-regular-italic {
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+
 
 .marquee {
   display: flex;
@@ -15,3 +35,5 @@
     transform: translateX(-50%);
   }
 }
+
+

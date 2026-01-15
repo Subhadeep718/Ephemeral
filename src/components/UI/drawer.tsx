@@ -26,35 +26,71 @@ export default function Drawer({
   const currentPos = useRef(0);
   const dragging = useRef(false);
 
+  const isReady = useRef(false); // ⭐ MASTER FIX
+
+  /* -------------------- MARK READY AFTER MOUNT -------------------- */
+  useEffect(() => {
+    isReady.current = true;
+  }, []);
+
+  /* -------------------- ESC KEY -------------------- */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  /* -------------------- ANIMATION -------------------- */
   useGSAP(
     () => {
       if (!drawerRef.current || !backdropRef.current) return;
 
       const isHorizontal = position === "right" || position === "left";
 
+      // 🚫 Ignore OPEN on first paint (page refresh / route visit)
+      if (!isReady.current && open) {
+        gsap.set(backdropRef.current, {
+          opacity: 0,
+          pointerEvents: "none",
+        });
+
+        gsap.set(drawerRef.current, {
+          x:
+            isHorizontal && position === "right"
+              ? "100%"
+              : isHorizontal
+              ? "-100%"
+              : 0,
+          y: position === "bottom" ? "100%" : 0,
+        });
+        return;
+      }
+
+      // ✅ Normal behavior AFTER mount
       if (open) {
-        gsap.set(backdropRef.current, { opacity: 0, pointerEvents: "auto" });
-        gsap.to(backdropRef.current, { opacity: 1, duration: 0.25 });
+        gsap.set(backdropRef.current, {
+          opacity: 0,
+          pointerEvents: "auto",
+        });
+
+        gsap.to(backdropRef.current, {
+          opacity: 1,
+          duration: 0.25,
+        });
 
         gsap.fromTo(
           drawerRef.current,
           isHorizontal
             ? { x: position === "right" ? "100%" : "-100%" }
             : { y: "100%" },
-          { x: 0, y: 0, duration: 0.4, ease: "power3.out" },
+          { x: 0, y: 0, duration: 0.4, ease: "power3.out" }
         );
       } else {
         gsap.to(backdropRef.current, {
           opacity: 0,
           duration: 0.2,
           onComplete: () =>
-            void gsap.set(backdropRef.current, { pointerEvents: "none" }),
+          void  gsap.set(backdropRef.current, { pointerEvents: "none" }),
         });
 
         gsap.to(drawerRef.current, {
@@ -65,9 +101,10 @@ export default function Drawer({
         });
       }
     },
-    { dependencies: [open, position] },
+    { dependencies: [open, position] }
   );
 
+  /* -------------------- DRAG -------------------- */
   const onPointerDown = (e: React.PointerEvent) => {
     dragging.current = true;
     startPos.current = position === "bottom" ? e.clientY : e.clientX;
@@ -78,10 +115,8 @@ export default function Drawer({
     if (!dragging.current || !drawerRef.current) return;
 
     const current = position === "bottom" ? e.clientY : e.clientX;
-
     let delta = current - startPos.current;
 
-    // Direction control
     if (position === "left") delta = Math.min(delta, 0);
     if (position === "right") delta = Math.max(delta, 0);
     if (position === "bottom") delta = Math.max(delta, 0);
@@ -89,7 +124,7 @@ export default function Drawer({
     currentPos.current = Math.abs(delta);
 
     gsap.set(drawerRef.current, {
-      x: position === "right" ? delta : position === "left" ? delta : 0,
+      x: position !== "bottom" ? delta : 0,
       y: position === "bottom" ? delta : 0,
     });
   };
@@ -106,27 +141,25 @@ export default function Drawer({
 
     const shouldClose = currentPos.current > size * 0.35;
 
-    if (shouldClose) {
-      onClose();
-    } else {
-      gsap.to(drawerRef.current, {
-        x: 0,
-        y: 0,
-        duration: 0.3,
-        ease: "power3.out",
-      });
-    }
+    shouldClose
+      ? onClose()
+      : gsap.to(drawerRef.current, {
+          x: 0,
+          y: 0,
+          duration: 0.3,
+          ease: "power3.out",
+        });
 
     currentPos.current = 0;
   };
 
+  /* -------------------- RENDER -------------------- */
   return (
     <>
-      {/* Backdrop */}
       <div
         ref={backdropRef}
         onClick={onClose}
-        className="fixed inset-0 bg-black/50 z-40 pointer-events-none backdrop-blur-xs"
+        className="fixed inset-0 z-40 bg-black/50 pointer-events-none backdrop-blur-xs"
       />
 
       <div
@@ -135,7 +168,7 @@ export default function Drawer({
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         style={{
-          width: position === "right" || position === "left" ? width : "100%",
+          width: position !== "bottom" ? width : "100%",
           height: position === "bottom" ? height : "100%",
           touchAction: "none",
         }}
@@ -145,8 +178,8 @@ export default function Drawer({
             position === "right"
               ? "top-0 right-0"
               : position === "left"
-                ? "top-0 left-0"
-                : "bottom-0 left-0"
+              ? "top-0 left-0"
+              : "bottom-0 left-0"
           }
           rounded-t-xl shadow-xl flex flex-col p-2.5
         `}
