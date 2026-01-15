@@ -6,7 +6,6 @@
   font-style: normal;
 }
 
-
 .dm-serif-text-regular {
   font-family: "DM Serif Text", serif;
   font-weight: 400;
@@ -19,7 +18,14 @@
   font-style: italic;
 }
 
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
 .marquee {
   display: flex;
@@ -35,5 +41,3 @@
     transform: translateX(-50%);
   }
 }
-
-
