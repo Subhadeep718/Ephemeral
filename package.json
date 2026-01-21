@@ -14,7 +14,6 @@
     "@emotion/styled": "^11.14.1",
     "@gsap/react": "^2.1.2",
     "@mui/icons-material": "^7.3.7",
-    "@mui/material": "^7.3.7",
     "@tailwindcss/vite": "^4.1.17",
     "@tanstack/react-query": "^5.90.12",
     "@tanstack/react-router": "^1.141.6",

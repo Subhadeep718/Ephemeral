@@ -15,3 +15,15 @@ export default function LayoutWrap() {
     </>
   );
 }
+
+function MobileView() {
+  return (
+    <div className="grid grid-rows-[50px_1fr_60px] h-full bg-black/80">
+      <h3 className="quintessential-regular text-2xl tracking-widest text-white">
+        EPHEMERAL
+      </h3>
+      <Outlet />
+      <div></div>
+    </div>
+  );
+}
