@@ -3,10 +3,8 @@ import { FaUser } from "react-icons/fa";
 import { IoChatbubbles } from "react-icons/io5";
 import { Link } from "@tanstack/react-router";
 import { FaSearch } from "react-icons/fa";
-import "../../index.css"
+import "../../index.css";
 import { useMatch } from "@tanstack/react-router";
-
-
 
 type NavItemProps = {
   to: "/" | "/search" | "/chat" | "/me";
@@ -14,53 +12,40 @@ type NavItemProps = {
   icon: React.ElementType;
 };
 
-
 export default function Nav() {
- const list = [
+  const list = [
     { name: "Home", link: "/", icon: AiFillHome },
     { name: "Search", link: "/search", icon: FaSearch },
     { name: "chat", link: "/chat", icon: IoChatbubbles },
     { name: "Me", link: "/me", icon: FaUser },
-  ]as const;
+  ] as const;
 
   return (
     <div className="grid grid-rows-[65px_1px_1fr]  min-h-screen">
+      <div className="flex items-center justify-center">
+        <h3 className="quintessential-regular text-2xl tracking-widest text-white">
+          EPHEMERAL
+        </h3>
+      </div>
 
-    <div className="flex items-center justify-center">
-      <h3 className="quintessential-regular text-2xl tracking-[0.1em] text-white">
-        EPHEMERAL
-      </h3>
-    </div>
-  
+      <hr className="border-gray-800" />
 
-    <hr className="border-gray-800" />
-  
-
-    <ul className="flex flex-col gap-1 p-4">
-    {list.map((e) => (
-          <NavItem
-            key={e.link}
-            to={e.link}
-            name={e.name}
-            icon={e.icon}
-          />
+      <ul className="flex flex-col gap-1 p-4">
+        {list.map((e) => (
+          <NavItem key={e.link} to={e.link} name={e.name} icon={e.icon} />
         ))}
-    </ul>
-  </div>
+      </ul>
+    </div>
   );
 }
-
-
 
 function NavItem({ to, name, icon: Icon }: NavItemProps) {
   const match = useMatch({
     from: to,
-    shouldThrow: false
+    shouldThrow: false,
   });
 
   const isActive = Boolean(match);
-
- 
 
   return (
     <Link to={to} className="group">
@@ -76,20 +61,12 @@ function NavItem({ to, name, icon: Icon }: NavItemProps) {
       >
         <Icon
           className={`text-xl transition-colors
-            ${
-              isActive
-                ? "text-amber-200"
-                : "group-hover:text-amber-200"
-            }`}
+            ${isActive ? "text-amber-200" : "group-hover:text-amber-200"}`}
         />
 
         <span
           className={`text-lg capitalize tracking-wide italic
-            ${
-              isActive
-                ? "opacity-100"
-                : "opacity-80 group-hover:opacity-100"
-            }`}
+            ${isActive ? "opacity-100" : "opacity-80 group-hover:opacity-100"}`}
         >
           {name}
         </span>
