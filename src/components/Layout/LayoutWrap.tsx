@@ -12,7 +12,7 @@ export default function LayoutWrap() {
   return (
     <>
       <FastLoader />
-      {/* <DefaultViwe/> */}
+      <DefaultView />
       <MobileView />
     </>
   );
@@ -46,7 +46,7 @@ function MobileView() {
  *
  * @returns A JSX element containing the two-column layout with Nav and an Outlet-backed content region.
  */
-function DefaultViwe() {
+function DefaultView() {
   return (
     <div className="grid  grid-cols-[200px_1fr] h-full bg-black/80 ">
       <Nav />

@@ -7,6 +7,7 @@ import { MdBookmarkAdded } from "react-icons/md";
 
 import LikePost from "../ActionButton/LikeButton";
 import CommentPost from "../ActionButton/CommentButton";
+import { useState } from "react";
 
 export default function Post() {
   return (
