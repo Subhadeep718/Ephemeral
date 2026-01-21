@@ -2,10 +2,11 @@ import Avatar from "./Avatar";
 import "../../index.css";
 
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { MdOutlineBookmarkAdd } from "react-icons/md";
+import { MdBookmarkAdded } from "react-icons/md";
 
 import LikePost from "../ActionButton/LikeButton";
 import CommentPost from "../ActionButton/CommentButton";
-import BookmarkAdded from "../ActionButton/BookmarkButton";
 
 export default function Post() {
   return (
@@ -66,6 +67,14 @@ function PostFooterAction() {
       <BookmarkAdded />
     </div>
   );
+}
+
+function BookmarkAdded() {
+  const [isMark, setIsMark] = useState(false);
+  if (isMark) {
+    return <MdOutlineBookmarkAdd onClick={() => setIsMark(false)} />;
+  }
+  return <MdBookmarkAdded onClick={() => setIsMark(true)} />;
 }
 
 //  loop

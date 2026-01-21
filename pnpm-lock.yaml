@@ -7,7 +7,49 @@ settings:
 overrides:
   vite: npm:rolldown-vite@7.2.5
 
-importers:
+dependencies:
+  '@emotion/react':
+    specifier: ^11.14.0
+    version: 11.14.0(@types/react@19.2.8)(react@19.2.3)
+  '@emotion/styled':
+    specifier: ^11.14.1
+    version: 11.14.1(@emotion/react@11.14.0)(@types/react@19.2.8)(react@19.2.3)
+  '@gsap/react':
+    specifier: ^2.1.2
+    version: 2.1.2(gsap@3.14.2)(react@19.2.3)
+  '@mui/icons-material':
+    specifier: ^7.3.7
+    version: 7.3.7(@mui/material@7.3.7)(@types/react@19.2.8)(react@19.2.3)
+  '@tailwindcss/vite':
+    specifier: ^4.1.17
+    version: 4.1.18(rolldown-vite@7.2.5)
+  '@tanstack/react-query':
+    specifier: ^5.90.12
+    version: 5.90.16(react@19.2.3)
+  '@tanstack/react-router':
+    specifier: ^1.141.6
+    version: 1.147.3(react-dom@19.2.3)(react@19.2.3)
+  '@tanstack/react-router-devtools':
+    specifier: ^1.141.6
+    version: 1.149.0(@tanstack/react-router@1.147.3)(@tanstack/router-core@1.147.1)(csstype@3.2.3)(react-dom@19.2.3)(react@19.2.3)
+  '@tanstack/router-devtools':
+    specifier: ^1.141.6
+    version: 1.149.0(@tanstack/react-router@1.147.3)(@tanstack/router-core@1.147.1)(csstype@3.2.3)(react-dom@19.2.3)(react@19.2.3)
+  gsap:
+    specifier: ^3.14.2
+    version: 3.14.2
+  react:
+    specifier: ^19.2.0
+    version: 19.2.3
+  react-dom:
+    specifier: ^19.2.0
+    version: 19.2.3(react@19.2.3)
+  react-icons:
+    specifier: ^5.5.0
+    version: 5.5.0(react@19.2.3)
+  tailwindcss:
+    specifier: ^4.1.17
+    version: 4.1.18
 
   .:
     dependencies:
@@ -810,9 +852,36 @@ packages:
     cpu: [x64]
     os: [win32]
 
+<<<<<<< HEAD
   '@tailwindcss/oxide@4.1.17':
     resolution: {integrity: sha512-F0F7d01fmkQhsTjXezGBLdrl1KresJTcI3DB8EkScCldyKp3Msz4hub4uyYaVnk88BAS1g5DQjjF6F5qczheLA==}
     engines: {node: '>= 10'}
+=======
+  /@tailwindcss/oxide@4.1.18:
+    resolution: {integrity: sha512-EgCR5tTS5bUSKQgzeMClT6iCY3ToqE1y+ZB0AKldj809QXk1Y+3jB0upOYZrn9aGIzPtUsP7sX4QQ4XtjBB95A==}
+    engines: {node: '>=14.0.0'}
+    optionalDependencies:
+      '@tailwindcss/oxide-android-arm64': 4.1.18
+      '@tailwindcss/oxide-darwin-arm64': 4.1.18
+      '@tailwindcss/oxide-darwin-x64': 4.1.18
+      '@tailwindcss/oxide-freebsd-x64': 4.1.18
+      '@tailwindcss/oxide-linux-arm-gnueabihf': 4.1.18
+      '@tailwindcss/oxide-linux-arm64-gnu': 4.1.18
+      '@tailwindcss/oxide-linux-arm64-musl': 4.1.18
+      '@tailwindcss/oxide-linux-x64-gnu': 4.1.18
+      '@tailwindcss/oxide-linux-x64-musl': 4.1.18
+      '@tailwindcss/oxide-wasm32-wasi': 4.1.18
+      '@tailwindcss/oxide-win32-arm64-msvc': 4.1.18
+      '@tailwindcss/oxide-win32-x64-msvc': 4.1.18
+    dev: false
+    bundledDependencies:
+      - '@napi-rs/wasm-runtime'
+      - '@emnapi/core'
+      - '@emnapi/runtime'
+      - '@tybys/wasm-util'
+      - '@emnapi/wasi-threads'
+      - tslib
+>>>>>>> 4369a08ea67294b9f89ca1c3c2fa19bba1444833
 
   '@tailwindcss/vite@4.1.17':
     resolution: {integrity: sha512-4+9w8ZHOiGnpcGI6z1TVVfWaX/koK7fKeSYF3qlYg2xpBtbteP2ddBxiarL+HVgfSJGeK5RIxRQmKm4rTJJAwA==}
@@ -1503,6 +1572,25 @@ packages:
   lightningcss@1.30.2:
     resolution: {integrity: sha512-utfs7Pr5uJyyvDETitgsaqSyjCb2qNRAtuqUeWIAKztsOYdcACf2KtARYXg2pSvhkt+9NfoaNY7fxjl6nuMjIQ==}
     engines: {node: '>= 12.0.0'}
+<<<<<<< HEAD
+=======
+    dependencies:
+      detect-libc: 2.1.2
+    optionalDependencies:
+      lightningcss-android-arm64: 1.30.2
+      lightningcss-darwin-arm64: 1.30.2
+      lightningcss-darwin-x64: 1.30.2
+      lightningcss-freebsd-x64: 1.30.2
+      lightningcss-linux-arm-gnueabihf: 1.30.2
+      lightningcss-linux-arm64-gnu: 1.30.2
+      lightningcss-linux-arm64-musl: 1.30.2
+      lightningcss-linux-x64-gnu: 1.30.2
+      lightningcss-linux-x64-musl: 1.30.2
+      lightningcss-win32-arm64-msvc: 1.30.2
+      lightningcss-win32-x64-msvc: 1.30.2
+    bundledDependencies:
+      - napi-wasm
+>>>>>>> 4369a08ea67294b9f89ca1c3c2fa19bba1444833
 
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
