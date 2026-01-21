@@ -1,15 +1,13 @@
 import Avatar from "./Avatar";
 import "../../index.css";
-import { useState } from "react";
-// import { gsap } from "gsap";
 
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { MdBookmarkAdded } from "react-icons/md";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { BsChat } from "react-icons/bs";
-import Drawer from "./drawer";
+
+import LikePost from "../ActionButton/LikeButton";
+import CommentPost from "../ActionButton/CommentButton";
+import { useState } from "react";
 
 export default function Post() {
   return (
@@ -78,54 +76,6 @@ function BookmarkAdded() {
     return <MdOutlineBookmarkAdd onClick={() => setIsMark(false)} />;
   }
   return <MdBookmarkAdded onClick={() => setIsMark(true)} />;
-}
-
-function LikePost({ countLike }: { countLike: number }) {
-  const [liked, setLiked] = useState(false);
-  const [likedCound, setLikedCound] = useState(countLike);
-
-  const handleLike = () => {
-    if (!liked) {
-      setLiked(true);
-      setLikedCound(likedCound + 1);
-    } else {
-      setLiked(false);
-      setLikedCound(likedCound - 1);
-    }
-  };
-
-  return (
-    <div onClick={handleLike} className="flex flex-row gap-1 items-start">
-      <div>
-        {liked ? (
-          <FavoriteIcon sx={{ fontSize: "30px", color: "red" }} />
-        ) : (
-          <FavoriteBorderIcon sx={{ fontSize: "30px", color: "#c8c8c8" }} />
-        )}
-      </div>
-      <p className="text-[1.2rem] font-bold text-white/80 ">{likedCound}</p>
-    </div>
-  );
-}
-
-function CommentPost({ countComment }: { countComment: number }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <>
-      <div
-        onClick={() => setOpen(true)}
-        className="flex flex-row gap-2 items-start "
-      >
-        <BsChat
-          style={{ fontSize: "24px", fontWeight: "bold", color: "#c8c8c8" }}
-        />
-        <p className="text-[1.2rem] font-bold text-white/80 ">{countComment}</p>
-      </div>
-      <Drawer open={open} onClose={() => setOpen(false)} position="bottom">
-        <div>hi</div>
-      </Drawer>
-    </>
-  );
 }
 
 //  loop

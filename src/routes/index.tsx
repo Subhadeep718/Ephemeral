@@ -4,9 +4,10 @@ import Post from "../components/UI/Post";
 
 export const Route = createFileRoute("/")({
   component: () => (
-    <h1>
+    <div>
       <Home />
-    </h1>
+      {/* hi */}
+    </div>
   ),
 });
 
