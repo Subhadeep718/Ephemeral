@@ -13,6 +13,11 @@ type NavItemProps = {
   };
 
 
+/**
+ * Renders a bottom-aligned mobile navigation bar with Home, Search, Chat, and Me items.
+ *
+ * @returns A JSX element containing an inline list of navigation items for mobile layout
+ */
 export default function MobileNav(){
     const list = [
         { name: "Home", link: "/", icon: AiFillHome },
@@ -32,7 +37,15 @@ export default function MobileNav(){
 }
 
 
-function NavItem({ to, name, icon: Icon }: NavItemProps) {
+/**
+   * Render a navigation item with an icon and label that links to the specified route and reflects the active route state.
+   *
+   * @param to - The route path this item links to.
+   * @param name - The label text displayed beneath the icon.
+   * @param icon - The React component used to render the item's icon.
+   * @returns A JSX element representing the linked navigation item (`li` wrapped in a `Link`) with active/inactive styling.
+   */
+  function NavItem({ to, name, icon: Icon }: NavItemProps) {
     const match = useMatch({
       from: to,
       shouldThrow: false,
