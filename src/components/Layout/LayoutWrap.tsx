@@ -12,7 +12,7 @@ export default function LayoutWrap() {
   return (
     <>
       <FastLoader />
-      {/* <DefaultView /> */}
+      <DefaultView />
       <MobileView />
     </>
   );
