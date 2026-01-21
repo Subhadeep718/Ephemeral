@@ -3,6 +3,11 @@ import Nav from "./Nav";
 import FastLoader from "../Loader/FastLoader";
 import MobileNav from "./MobileNav";
 
+/**
+ * Application layout wrapper that mounts global loaders and the mobile view.
+ *
+ * @returns The top-level JSX element composing the global FastLoader and the MobileView layout.
+ */
 export default function LayoutWrap() {
   return (
     <>
@@ -13,6 +18,11 @@ export default function LayoutWrap() {
   );
 }
 
+/**
+ * Render the mobile-optimized app layout with a header, a scrollable content area for nested routes, and a fixed bottom navigation.
+ *
+ * @returns A JSX element containing a top header labeled "EPHEMERAL", a full-height scrollable container that renders nested routes via `Outlet`, and a fixed bottom `MobileNav` bar.
+ */
 function MobileView() {
   return (
     <div className="grid grid-rows-[30px_1fr] h-full bg-black/80">
@@ -28,6 +38,13 @@ function MobileView() {
 }
 
 
+/**
+ * Renders a two-column desktop layout with a fixed 200px navigation column and a centered, scrollable content area.
+ *
+ * The left column displays the Nav component; the right column centers content to a max width of 630px, provides vertical scrolling, and renders nested route content via Outlet.
+ *
+ * @returns A JSX element containing the two-column layout with Nav and an Outlet-backed content region.
+ */
 function DefaultViwe(){
   return(
     <div className="grid  grid-cols-[200px_1fr] h-full bg-black/80 ">
