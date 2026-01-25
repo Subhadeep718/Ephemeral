@@ -28,7 +28,7 @@ export default function CommentPost({
   );
 }
 
-function Comment({ data }: { data?: any[] }) {
+function Comment({ data }: { data?: string[] }) {
   if (data) {
     <div>
       <Avatar />
