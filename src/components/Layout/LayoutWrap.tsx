@@ -25,7 +25,7 @@ export default function LayoutWrap() {
  */
 function MobileView() {
   return (
-    <div className="grid grid-rows-[30px_1fr] h-full bg-black/80">
+    <div className="grid md:hidden grid-rows-[30px_1fr] h-full bg-black/80">
       <h3 className="quintessential-regular text-2xl tracking-widest text-white">
         EPHEMERAL
       </h3>
@@ -48,7 +48,7 @@ function MobileView() {
  */
 function DefaultView() {
   return (
-    <div className="grid  grid-cols-[200px_1fr] h-full bg-black/80 ">
+    <div className="hidden md:grid grid-cols-[200px_1fr] h-full bg-black/80 ">
       <Nav />
       <div className="h-full w-full max-w-[630px] m-auto overflow-auto hide-scrollbar">
         <Outlet />
