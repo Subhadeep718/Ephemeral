@@ -1,16 +1,20 @@
 import Avatar from "./Avatar";
 import "../../index.css";
-import { useState } from "react";
-// import { gsap } from "gsap";
 
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { MdBookmarkAdded } from "react-icons/md";
 
+<<<<<<< HEAD
 
 
 import LikePost from "../ActionButton/LikeButton";
 import CommentPost from "../ActionButton/CommentButton";
+=======
+import LikePost from "../ActionButton/LikeButton";
+import CommentPost from "../ActionButton/CommentButton";
+import { useState } from "react";
+>>>>>>> 588f09f75c8ba54e482ccc8bb67ca154cd9adfe2
 
 export default function Post() {
   return (
@@ -81,10 +85,13 @@ function BookmarkAdded() {
   return <MdBookmarkAdded onClick={() => setIsMark(true)} />;
 }
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 588f09f75c8ba54e482ccc8bb67ca154cd9adfe2
 //  loop
 //  <div className="relative w-full overflow-hidden mt-1">
 //           <div className="marquee">

@@ -12,8 +12,8 @@ export default function LayoutWrap() {
   return (
     <>
       <FastLoader />
-    {/* <DefaultViwe/> */}
-    <MobileView/>
+      <DefaultView />
+      <MobileView />
     </>
   );
 }
@@ -30,13 +30,14 @@ function MobileView() {
         EPHEMERAL
       </h3>
       <div className="h-full w-full overflow-auto hide-scrollbar pb-[4.8rem]">
-      <Outlet />
+        <Outlet />
       </div>
-      <div className="fixed bottom-0 left-0  w-full p-3 bg-[#60606096] backdrop-blur-[10px] rounded-t-[15px]"><MobileNav/></div>
+      <div className="fixed bottom-0 left-0  w-full p-3 bg-[#60606096] backdrop-blur-[10px] rounded-t-[15px]">
+        <MobileNav />
+      </div>
     </div>
   );
 }
-
 
 /**
  * Renders a two-column desktop layout with a fixed 200px navigation column and a centered, scrollable content area.
@@ -45,13 +46,13 @@ function MobileView() {
  *
  * @returns A JSX element containing the two-column layout with Nav and an Outlet-backed content region.
  */
-function DefaultViwe(){
-  return(
+function DefaultView() {
+  return (
     <div className="grid  grid-cols-[200px_1fr] h-full bg-black/80 ">
-    <Nav />
-    <div className="h-full w-full max-w-[630px] m-auto overflow-auto hide-scrollbar">
-      <Outlet />
+      <Nav />
+      <div className="h-full w-full max-w-[630px] m-auto overflow-auto hide-scrollbar">
+        <Outlet />
+      </div>
     </div>
-  </div>
-  )
+  );
 }
