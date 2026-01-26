@@ -1,7 +1,8 @@
 import Avatar from "./Avatar";
 import "../../index.css";
 
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { HiDotsVertical } from "react-icons/hi";
+
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { MdBookmarkAdded } from "react-icons/md";
 
@@ -9,10 +10,12 @@ import LikePost from "../ActionButton/LikeButton";
 import CommentPost from "../ActionButton/CommentButton";
 import { useState } from "react";
 
-export default function Post() {
+export default function Post({ className = "" }: { className?: string }) {
   return (
-    <div className=" grid grid-rows-[40px_auto_auto] gap-2">
-      <PostTitle userName="Subhadeep" songTitle="lorem is" />
+    <div
+      className={`${className} grid grid-rows-[40px_auto_auto] gap-2 mb-3.5`}
+    >
+      <PostTitle name="Subhadeep" userName="@Subhadeep7" />
       <div className="w-full h-full overflow-hidden">
         <img
           src="https://static0.srcdn.com/wordpress/wp-content/uploads/2025/05/one-piece-luffy-angry.jpg"
@@ -21,20 +24,26 @@ export default function Post() {
         />
       </div>
       <PostFooter />
+      <hr className="text-white/30" />
+      <PostDescription />
     </div>
   );
 }
 
 interface PostTitleProps {
-  userName: string;
-  songTitle?: string;
+  name: string;
+  userName?: string;
   imgLink?: string;
 }
 
-function PostTitle({ userName, songTitle, imgLink }: PostTitleProps) {
+function PostTitle({
+  name: userName,
+  userName: songTitle,
+  imgLink,
+}: PostTitleProps) {
   return (
     <div className="grid px-2.5 items-center grid-cols-[1fr_auto]">
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-2">
         <Avatar size="sm" imgLink={imgLink} text={userName} />
         <div>
           <p className="text-sm font-bold text-white/80 ">{userName}</p>
@@ -44,7 +53,7 @@ function PostTitle({ userName, songTitle, imgLink }: PostTitleProps) {
         </div>
       </div>
       <div>
-        <HiOutlineDotsHorizontal />
+        <HiDotsVertical className="text-[1.2rem] font-bold text-white/80" />
       </div>
     </div>
   );
@@ -73,24 +82,45 @@ function PostFooterAction() {
 function BookmarkAdded() {
   const [isMark, setIsMark] = useState(false);
   if (isMark) {
-    return <MdOutlineBookmarkAdd onClick={() => setIsMark(false)} />;
+    return (
+      <MdBookmarkAdded
+        className="text-[1.5rem] font-bold text-white/80"
+        onClick={() => setIsMark(false)}
+      />
+    );
   }
-  return <MdBookmarkAdded onClick={() => setIsMark(true)} />;
+  return (
+    <MdOutlineBookmarkAdd
+      className="text-[1.5rem] font-bold text-white/80"
+      onClick={() => setIsMark(true)}
+    />
+  );
 }
 
-//  loop
-//  <div className="relative w-full overflow-hidden mt-1">
-//           <div className="marquee">
-//             <p className="text-xs font-medium whitespace-nowrap">
-//               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-//               Repellendus dolorem quae corrupti, eos, odio velit nostrum nisi
-//               adipisci cum.
-//             </p>
+function PostDescription() {
+  const [show, setShow] = useState(false);
 
-//             {/* duplicate for seamless loop */}
-//             <p className="text-xs font-medium whitespace-nowrap ml-8">
-//               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-//               Repellendus dolorem quae corrupti, eos, odio velit nostrum nisi
-//               adipisci cum.
-//             </p>
-//           </div>
+  return (
+    <div
+      onClick={() => setShow(!show)}
+      className="grid grid-cols-[1fr_auto] gap-1"
+    >
+      <p
+        className={`text-xs text-white/80 ${
+          show ? "line-clamp-none" : "line-clamp-1"
+        }`}
+      >
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis
+        laboriosam dicta vero eos optio eaque quas fuga, ducimus deleniti,
+        dolor, porro numquam? Consequuntur repudiandae aliquid nesciunt officia
+        repellat quasi maxime.
+      </p>
+
+      {!show && (
+        <button className="text-xs text-white/80 whitespace-nowrap">
+          More
+        </button>
+      )}
+    </div>
+  );
+}
