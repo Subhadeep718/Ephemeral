@@ -1,13 +1,15 @@
 import { AiFillHome } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 import { IoChatbubbles } from "react-icons/io5";
+import { BiSolidMessageSquareAdd } from "react-icons/bi";
+
 import { Link } from "@tanstack/react-router";
 import { FaSearch } from "react-icons/fa";
 import "../../index.css";
 import { useMatch } from "@tanstack/react-router";
 
 type NavItemProps = {
-  to: "/" | "/search" | "/chat" | "/me";
+  to: "/" | "/search" | "/addPost" | "/chat" | "/me";
   name: string;
   icon: React.ElementType;
 };
@@ -16,6 +18,7 @@ export default function Nav() {
   const list = [
     { name: "Home", link: "/", icon: AiFillHome },
     { name: "Search", link: "/search", icon: FaSearch },
+    { name: "ADD Post", link: "/addPost", icon: BiSolidMessageSquareAdd },
     { name: "chat", link: "/chat", icon: IoChatbubbles },
     { name: "Me", link: "/me", icon: FaUser },
   ] as const;
