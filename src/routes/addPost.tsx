@@ -1,3 +1,4 @@
+import { ArrowLeftIcon } from "@/components/UI/arrow-left";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/addPost")({
@@ -8,7 +9,9 @@ function RouteComponent() {
   return (
     <div>
       <div className="flex flex-row justify-between items-center">
-        <button></button>
+        <button>
+          <ArrowLeftIcon />
+        </button>
         <h3>Create Post</h3>
         <button>Post</button>
       </div>
