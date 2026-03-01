@@ -3,12 +3,7 @@ import Post from "../components/UI/Post";
 // import Post from "../components/UI/Post";
 
 export const Route = createFileRoute("/")({
-  component: () => (
-    <div>
-      <Home />
-      {/* hi */}
-    </div>
-  ),
+  component: () => <Home />,
 });
 
 const Home = () => {

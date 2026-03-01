@@ -1,3 +1,5 @@
+"use client";
+
 import type { Variants } from "motion/react";
 import { motion, useAnimation } from "motion/react";
 import type { HTMLAttributes } from "react";
@@ -5,37 +7,27 @@ import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
-export interface ArrowLeftIconHandle {
+export interface XIconHandle {
   startAnimation: () => void;
   stopAnimation: () => void;
 }
 
-interface ArrowLeftIconProps extends HTMLAttributes<HTMLDivElement> {
+interface XIconProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
 }
 
 const PATH_VARIANTS: Variants = {
-  normal: { d: "m12 19-7-7 7-7", translateX: 0 },
+  normal: {
+    opacity: 1,
+    pathLength: 1,
+  },
   animate: {
-    d: "m12 19-7-7 7-7",
-    translateX: [0, 3, 0],
-    transition: {
-      duration: 0.4,
-    },
+    opacity: [0, 1],
+    pathLength: [0, 1],
   },
 };
 
-const SECOND_PATH_VARIANTS: Variants = {
-  normal: { d: "M19 12H5" },
-  animate: {
-    d: ["M19 12H5", "M19 12H10", "M19 12H5"],
-    transition: {
-      duration: 0.4,
-    },
-  },
-};
-
-const ArrowLeftIcon = forwardRef<ArrowLeftIconHandle, ArrowLeftIconProps>(
+const XIcon = forwardRef<XIconHandle, XIconProps>(
   ({ onMouseEnter, onMouseLeave, className, size = 28, ...props }, ref) => {
     const controls = useAnimation();
     const isControlledRef = useRef(false);
@@ -70,7 +62,6 @@ const ArrowLeftIcon = forwardRef<ArrowLeftIconHandle, ArrowLeftIconProps>(
       },
       [controls, onMouseLeave],
     );
-
     return (
       <div
         className={cn(className)}
@@ -91,13 +82,16 @@ const ArrowLeftIcon = forwardRef<ArrowLeftIconHandle, ArrowLeftIconProps>(
         >
           <motion.path
             animate={controls}
-            d="m12 19-7-7 7-7"
+            d="M18 6 6 18"
+            initial="normal"
             variants={PATH_VARIANTS}
           />
           <motion.path
             animate={controls}
-            d="M19 12H5"
-            variants={SECOND_PATH_VARIANTS}
+            d="m6 6 12 12"
+            initial="normal"
+            transition={{ delay: 0.2 }}
+            variants={PATH_VARIANTS}
           />
         </svg>
       </div>
@@ -105,6 +99,6 @@ const ArrowLeftIcon = forwardRef<ArrowLeftIconHandle, ArrowLeftIconProps>(
   },
 );
 
-ArrowLeftIcon.displayName = "ArrowLeftIcon";
+XIcon.displayName = "XIcon";
 
-export { ArrowLeftIcon };
+export { XIcon };
