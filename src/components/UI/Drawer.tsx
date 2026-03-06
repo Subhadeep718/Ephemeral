@@ -1,198 +1,206 @@
-// import { useRef, useEffect } from "react";
-// import { gsap } from "gsap";
-// import { useGSAP } from "@gsap/react";
+export function GsapDrawer({
+  open,
+  closeOpen,
+  children,
+  action = "bottom",
+  title
+}: {
+  open: boolean
+  closeOpen: () => void
+  children: React.ReactNode
+  action: "right" | "left" | "bottom"
+  title: string
+}) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const overlayRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
 
-// interface DrawerProps {
-//   open: boolean;
-//   onClose: () => void;
-//   position?: "right" | "bottom" | "left";
-//   width?: string;
-//   height?: string;
-//   children: React.ReactNode;
-// }
+  const dynamicWidth = "clamp(300px, 50vw, 800px)"
 
-// export default function Drawer({
-//   open,
-//   onClose,
-//   position = "right",
-//   width = "380px",
-//   height = "60vh",
-//   children,
-// }: DrawerProps) {
-//   const drawerRef = useRef<HTMLDivElement>(null);
-//   const backdropRef = useRef<HTMLDivElement>(null);
+  const config = {
+    bottom: {
+      x: 0,
+      y: "100%",
+      alignItems: "flex-end",
+      justifyContent: "center",
+      width: "100%",
+      height: "clamp(40dvh, 60dvh, 90dvh)",
+      radius: "20px 20px 0 0"
+    },
+    right: {
+      x: "100%",
+      y: 0,
+      alignItems: "center",
+      justifyContent: "flex-end",
+      width: dynamicWidth,
+      height: "100%",
+      radius: "0"
+    },
+    left: {
+      x: "-100%",
+      y: 0,
+      alignItems: "center",
+      justifyContent: "flex-start",
+      width: dynamicWidth,
+      height: "100%",
+      radius: "0 "
+    }
+  }[action]
 
-//   const startPos = useRef(0);
-//   const currentPos = useRef(0);
-//   const dragging = useRef(false);
+  useGSAP(
+    () => {
+      const tl = gsap.timeline()
 
-//   const isReady = useRef(false); 
+      if (open) {
+        gsap.set(overlayRef.current, { display: "flex" })
 
-  
-//   useEffect(() => {
-//     isReady.current = true;
-//   }, []);
+        gsap.set(contentRef.current?.children || [], {
+          y: 20,
+          opacity: 0
+        })
 
+        tl.to(overlayRef.current, {
+          opacity: 1,
+          duration: 0.3
+        })
+          .to(
+            panelRef.current,
+            {
+              x: 0,
+              y: 0,
+              opacity: 1,
+              duration: 0.5,
+              ease: "power3.out"
+            },
+            "-=0.1"
+          )
+          .to(
+            contentRef.current?.children || [],
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.4,
+              stagger: 0.08,
+              ease: "back.out(1.2)"
+            },
+            "-=0.2"
+          )
+      } else {
+        tl.to(panelRef.current, {
+          x: config.x,
+          y: config.y,
+          opacity: 0,
+          duration: 0.4,
+          ease: "power3.in"
+        }).to(
+          overlayRef.current,
+          {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+              gsap.set(overlayRef.current, { display: "none" })
+            }
+          },
+          "-=0.2"
+        )
+      }
+    },
+    { dependencies: [open, action], scope: containerRef }
+  )
 
-//   useEffect(() => {
-//     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-//     window.addEventListener("keydown", onKey);
-//     return () => window.removeEventListener("keydown", onKey);
-//   }, [onClose]);
+  return (
+    <div
+      ref={overlayRef}
+      style={{
+        position: "fixed",
+        inset: "0",
+        background: "#00000040",
+        backdropFilter: "blur(5px)",
+        zIndex: "9999",
+        opacity: 0,
+        display: "flex",
+        alignItems: config.alignItems,
+        justifyContent: config.justifyContent
+      }}
+      onClick={(e) => {
+        if (e.target === overlayRef.current) closeOpen()
+      }}
+    >
+      <div
+        ref={panelRef}
+        style={{
+          position: "relative",
+          width: config.width,
+          height: config.height,
+          minWidth: action !== "bottom" ? "300px" : "100%",
+          background: "#FBFBE3",
+          borderRadius: config.radius,
+          display: "flex",
+          flexDirection: "column",
+          padding: "1rem",
+          gap: "10px",
+          transform: `translate(${config.x}, ${config.y})`,
+          willChange: "transform",
+          boxShadow: "-10px 0 30px rgba(0,0,0,0.1)"
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: action === "bottom" ? "center" : "space-between",
+            alignItems: "center",
+            paddingBottom: "10px",
+            borderBottom: action !== "bottom" ? "1px solid #ddd" : "none"
+          }}
+        >
+          {action !== "bottom" && (
+            <div
+              style={{
+                fontWeight: "bold",
+                color: "rgb(54 54 54)",
+                fontSize: "clamp(1.3rem, 4vw, 1.5rem)"
+              }}
+            >
+              {title}
+            </div>
+          )}
 
-  
-//   useGSAP(
-//     () => {
-//       if (!drawerRef.current || !backdropRef.current) return;
+          {action === "bottom" ? (
+            <div
+              style={{
+                height: "6px",
+                width: "50px",
+                borderRadius: "10px",
+                background: "#9b9b9b",
+                cursor: "pointer"
+              }}
+              onClick={closeOpen}
+            />
+          ) : (
+            <div
+              style={{ cursor: "pointer", padding: "5px" }}
+              onClick={closeOpen}
+            >
+              <CloseIcon />
+            </div>
+          )}
+        </div>
 
-//       const isHorizontal = position === "right" || position === "left";
-
-   
-//       if (!isReady.current && open) {
-//         gsap.set(backdropRef.current, {
-//           opacity: 0,
-//           pointerEvents: "none",
-//         });
-
-//         gsap.set(drawerRef.current, {
-//           x:
-//             isHorizontal && position === "right"
-//               ? "100%"
-//               : isHorizontal
-//               ? "-100%"
-//               : 0,
-//           y: position === "bottom" ? "100%" : 0,
-//         });
-//         return;
-//       }
-
-    
-//       if (open) {
-//         gsap.set(backdropRef.current, {
-//           opacity: 0,
-//           pointerEvents: "auto",
-//         });
-
-//         gsap.to(backdropRef.current, {
-//           opacity: 1,
-//           duration: 0.25,
-//         });
-
-//         gsap.fromTo(
-//           drawerRef.current,
-//           isHorizontal
-//             ? { x: position === "right" ? "100%" : "-100%" }
-//             : { y: "100%" },
-//           { x: 0, y: 0, duration: 0.4, ease: "power3.out" }
-//         );
-//       } else {
-//         gsap.to(backdropRef.current, {
-//           opacity: 0,
-//           duration: 0.2,
-//           onComplete: () =>
-//           void  gsap.set(backdropRef.current, { pointerEvents: "none" }),
-//         });
-
-//         gsap.to(drawerRef.current, {
-//           x: isHorizontal ? (position === "right" ? "100%" : "-100%") : 0,
-//           y: position === "bottom" ? "100%" : 0,
-//           duration: 0.3,
-//           ease: "power3.in",
-//         });
-//       }
-//     },
-//     { dependencies: [open, position] }
-//   );
-
-
-//   const onPointerDown = (e: React.PointerEvent) => {
-//     dragging.current = true;
-//     startPos.current = position === "bottom" ? e.clientY : e.clientX;
-//     drawerRef.current?.setPointerCapture(e.pointerId);
-//   };
-
-//   const onPointerMove = (e: React.PointerEvent) => {
-//     if (!dragging.current || !drawerRef.current) return;
-
-//     const current = position === "bottom" ? e.clientY : e.clientX;
-//     let delta = current - startPos.current;
-
-//     if (position === "left") delta = Math.min(delta, 0);
-//     if (position === "right") delta = Math.max(delta, 0);
-//     if (position === "bottom") delta = Math.max(delta, 0);
-
-//     currentPos.current = Math.abs(delta);
-
-//     gsap.set(drawerRef.current, {
-//       x: position !== "bottom" ? delta : 0,
-//       y: position === "bottom" ? delta : 0,
-//     });
-//   };
-
-//   const onPointerUp = () => {
-//     if (!drawerRef.current) return;
-
-//     dragging.current = false;
-
-//     const size =
-//       position === "bottom"
-//         ? drawerRef.current.offsetHeight
-//         : drawerRef.current.offsetWidth;
-
-//     const shouldClose = currentPos.current > size * 0.35;
-
-//     shouldClose
-//       ? onClose()
-//       : gsap.to(drawerRef.current, {
-//           x: 0,
-//           y: 0,
-//           duration: 0.3,
-//           ease: "power3.out",
-//         });
-
-//     currentPos.current = 0;
-//   };
-
-
-//   return (
-//     <>
-//       <div
-//         ref={backdropRef}
-//         onClick={onClose}
-//         className="fixed inset-0 z-40 bg-black/50 pointer-events-none backdrop-blur-xs"
-//       />
-
-//       <div
-//         ref={drawerRef}
-//         onPointerDown={onPointerDown}
-//         onPointerMove={onPointerMove}
-//         onPointerUp={onPointerUp}
-//         style={{
-//           width: position !== "bottom" ? width : "100%",
-//           height: position === "bottom" ? height : "100%",
-//           touchAction: "none",
-//         }}
-//         className={`
-//           fixed z-50 bg-zinc-900 text-white
-//           ${
-//             position === "right"
-//               ? "top-0 right-0"
-//               : position === "left"
-//               ? "top-0 left-0"
-//               : "bottom-0 left-0"
-//           }
-//           rounded-t-xl shadow-xl flex flex-col p-2.5
-//         `}
-//       >
-//         {position === "bottom" && (
-//           <div className="mx-auto my-2 h-1.5 w-10 rounded-full bg-zinc-500" />
-//         )}
-
-//         {children}
-//       </div>
-//     </>
-//   );
-// }
+        <div
+          ref={contentRef}
+          className="no-sb"
+          style={{
+            flex: 1,
+            overflow: "auto"
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 interface DrawerProps{
     open: boolean
