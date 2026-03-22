@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { BsChat } from "react-icons/bs";
-import Drawer from "../UI/Drawer";
-import Avatar from "../UI/Avatar";
+// import Avatar from "../UI/Avatar";
+import GsapDrawer from "../UI/Drawer";
 
 export default function CommentPost({
   countComment,
 }: {
   countComment: number;
 }) {
-  const [open, setOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   return (
     <>
       <div
-        onClick={() => setOpen(true)}
+        onClick={() => setIsDrawerOpen(true)}
         className="flex flex-row gap-2 items-start "
       >
         <BsChat
@@ -20,24 +20,34 @@ export default function CommentPost({
         />
         <p className="text-[1.2rem] font-bold text-white/80 ">{countComment}</p>
       </div>
-      <Drawer open={open} onClose={() => setOpen(false)} position="bottom">
-        <h6>Comment</h6>
-        <Comment />
-      </Drawer>
+      <GsapDrawer
+        title="Menu"
+        action="bottom"
+        open={isDrawerOpen}
+        closeOpen={() => setIsDrawerOpen(false)}
+      >
+        <div>hi</div>
+        <h3>
+          hello Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et est
+          maiores expedita aperiam fugit tempora repellendus provident
+          perspiciatis sit dolores doloremque sint, iusto, corrupti
+          exercitationem, explicabo blanditiis aliquam corporis distinctio.
+        </h3>
+      </GsapDrawer>
     </>
   );
 }
 
-function Comment({ data }: { data?: string[] }) {
-  if (data) {
-    <div>
-      <Avatar />
-      <div>
-        <h6>Rahul Day</h6>
-        <p>Show Beautiful</p>
-      </div>
-    </div>;
-  }
+// function Comment({ data }: { data?: string[] }) {
+//   if (data) {
+//     <div>
+//       <Avatar />
+//       <div>
+//         <h6>Rahul Day</h6>
+//         <p>Show Beautiful</p>
+//       </div>
+//     </div>;
+//   }
 
-  return <div>Not Comment Yet</div>;
-}
+//   return <div>Not Comment Yet</div>;
+// }
